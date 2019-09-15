@@ -432,7 +432,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Scott Chacon, Ben Straub</span><br>
 <span id="revnumber">version 0,</span>
-<span id="revdate">2019-09-13</span>
+<span id="revdate">2019-09-14</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">目录</div>
@@ -1164,8 +1164,8 @@ color.diff=auto
 </div>
 </div>
 <div class="paragraph">
-<p>可能会看到重复的变量名，因为 Git 会从不同的文件中读取同一个配置（如 <code>/etc/gitconfig</code> 与 <code>~/.gitconfig</code>）。
-Git 使用找到的每一个变量的最后一个配置。</p>
+<p>由于 Git 会从不同的文件中读取同一个配置（如 <code>/etc/gitconfig</code> 与 <code>~/.gitconfig</code>）所以你可能会看到重复的变量名，
+Git 会使用找到的每一个变量的最后一个配置。</p>
 </div>
 <div class="paragraph">
 <p><code>git config &lt;key&gt;</code>： 可以检查 Git 的单独一项配置</p>
@@ -1486,7 +1486,7 @@ Changes not staged for commit:
 </div>
 </div>
 <div class="paragraph">
-<p>你会发现 <code>CONTRIBUTING.md</code> 文件现在同时出现在暂存区和非暂存区。
+<p><code>CONTRIBUTING.md</code> 文件现在同时出现在暂存区和非暂存区。
 这是因为 Git 只暂存了刚才运行 <code>git add</code> 命令时的版本。
 如果现在立刻提交，<code>CONTRIBUTING.md</code> 的版本会是最后一次运行 <code>git add</code> 命令时的版本，
 而不是当前这个添加了注释后保存的版本。
@@ -1537,10 +1537,10 @@ M  lib/simplegit.rb
 <div class="sect3">
 <h4 id="r_ignoring">忽略文件</h4>
 <div class="paragraph">
-<p>可以创建一个名为 <code>.gitignore</code> 的文件，在 <code>.gitignore</code> 里列出要忽略的 <em>文件模式</em> ，让 Git 不要管理这些文件。</p>
+<p>可以创建一个名为 <code>.gitignore</code> 的文件，在其中列出要忽略的 <em>文件模式</em> ，让 Git 不要管理这些文件。</p>
 </div>
 <div class="paragraph">
-<p>来看一个实际的例子：</p>
+<p>一个实际的例子：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1550,8 +1550,8 @@ M  lib/simplegit.rb
 </div>
 </div>
 <div class="paragraph">
-<p>第一行告诉 Git 忽略所有以 <code>.o</code> 或 <code>.a</code> 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的。
-第二行告诉 Git 忽略所有以波浪符（~）结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。
+<p>第一行让 Git 忽略所有以 <code>.o</code> 或 <code>.a</code> 结尾的文件（一般这类对象文件和存档文件都是编译过程中出现的）。
+第二行让 Git 忽略所有以波浪符（~）结尾的文件，许多文本编辑软件（比如 Emacs）都用这样的文件名保存副本。
 此外，你可能还需要忽略 log，tmp 或者 pid 目录，以及自动生成的文档等等。
 要养成一开始就设置好 .gitignore 文件的习惯，以免将来误提交这类无用的文件。</p>
 </div>
@@ -1561,7 +1561,7 @@ M  lib/simplegit.rb
 <div class="ulist">
 <ul>
 <li>
-<p>所有空行或者以 <code>＃</code> 开头的行都会被 Git 忽略。</p>
+<p>所有空行或者以 <code>＃</code> 开头的行都会被 Git 忽略（也即注释）。</p>
 </li>
 <li>
 <p>可以使用标准的 glob 模式匹配。</p>
@@ -1583,7 +1583,7 @@ M  lib/simplegit.rb
 使用两个星号（<code>*</code>) 表示匹配任意中间目录，比如 <code>a/**/z</code> 可以匹配 <code>a/z</code> , <code>a/b/z</code> 或 <code>a/b/c/z</code> 等。</p>
 </div>
 <div class="paragraph">
-<p>我们再看一个 .gitignore 文件的例子：</p>
+<p>一个 .gitignore 文件的例子：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1614,7 +1614,7 @@ doc/**/*.pdf</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>GitHub 有一个十分详细的针对数十种项目及语言的 <code>.gitignore</code> 文件列表，你可以在 <a href="https://github.com/github/gitignore" class="bare">https://github.com/github/gitignore</a> 找到它.</p>
+<p>GitHub 上有十分详细的针对数十种项目及语言的 <code>.gitignore</code> 文件列表，你可以在 <a href="https://github.com/github/gitignore" class="bare">https://github.com/github/gitignore</a> 找到它.</p>
 </div>
 </td>
 </tr>
@@ -1624,14 +1624,12 @@ doc/**/*.pdf</code></pre>
 <div class="sect3">
 <h4 id="r_git_diff_staged">查看已暂存和未暂存的修改</h4>
 <div class="paragraph">
-<p>如果 <code>git status</code> 命令的输出对于你来说过于模糊，你想知道具体修改了什么地方，可以用 <code>git diff</code> 命令。
-稍后我们会详细介绍 <code>git diff</code>，你可能通常会用它来回答这两个问题：当前做的哪些更新还没有暂存？
-有哪些更新已经暂存起来准备好了下次提交？
-尽管 <code>git status</code> 已经通过在相应栏下列出文件名的方式回答了这个问题，<code>git diff</code> 将通过文件补丁的格式显示具体哪些行发生了改变。</p>
+<p><code>git status</code> 输出简单的报告，如果想知道具体的修改可以用 <code>git diff</code> 命令。
+git diff` 通过文件补丁格式显示具体的修改行为。</p>
 </div>
 <div class="paragraph">
-<p>假如再次修改 README 文件后暂存，然后编辑 <code>CONTRIBUTING.md</code> 文件后先不暂存，
-运行 <code>status</code> 命令将会看到：</p>
+<p>假设 README 文件已经修改并暂存，<code>CONTRIBUTING.md</code> 文件修改但未暂存，
+运行 <code>git status</code> ：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1650,7 +1648,7 @@ Changes not staged for commit:
 </div>
 </div>
 <div class="paragraph">
-<p>要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 <code>git diff</code>：</p>
+<p>用 <code>git diff</code> 查看尚未暂存的文件更新了哪些部分：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1672,11 +1670,12 @@ index 8ebb991..643e24f 100644
 </div>
 </div>
 <div class="paragraph">
-<p>此命令比较的是工作目录中当前文件和暂存区域快照之间的差异，
+<p>此命令比较工作目录中当前文件和暂存区域快照之间的差异，
 也就是修改之后还没有暂存起来的变化内容。</p>
 </div>
 <div class="paragraph">
-<p>若要查看已暂存的将要添加到下次提交里的内容，可以用 <code>git diff --cached</code> 命令。（Git 1.6.1 及更高版本还允许使用 <code>git diff --staged</code>，效果是相同的，但更好记些。）</p>
+<p>查看已暂存的将要添加到下次提交里的内容，可以用 <code>git diff --cached</code> 命令。
+Git 1.6.1 及更高版本有一个相同效果的命令 <code>git diff --staged</code> （更好记）</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -23608,7 +23607,7 @@ for (Ref ref : remoteRefs) {
 <div id="footer">
 <div id="footer-text">
 Version 0<br>
-Last updated 2019-09-13 23:11:41 CST
+Last updated 2019-09-14 17:39:18 CST
 </div>
 </div>
 </body>
