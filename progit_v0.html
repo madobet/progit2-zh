@@ -432,7 +432,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Scott Chacon, Ben Straub</span><br>
 <span id="revnumber">version 0,</span>
-<span id="revdate">2019-09-14</span>
+<span id="revdate">2019-09-16</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">目录</div>
@@ -1690,11 +1690,11 @@ index 0000000..03902a1
 </div>
 </div>
 <div class="paragraph">
-<p>请注意，git diff 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。
+<p>git diff 只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。
 所以有时候你一下子暂存了所有更新过的文件后，运行 <code>git diff</code> 后却什么也没有，就是这个原因。</p>
 </div>
 <div class="paragraph">
-<p>像之前说的，暂存 <code>CONTRIBUTING.md</code> 后再编辑，运行 <code>git status</code> 会看到暂存前后的两个版本。
+<p>像之前，暂存 <code>CONTRIBUTING.md</code> 后再编辑，运行 <code>git status</code> 会看到暂存前后的两个版本。
 如果我们的环境（终端输出）看起来如下：</p>
 </div>
 <div class="listingblock">
@@ -1763,9 +1763,9 @@ index 8ebb991..643e24f 100644
 <td class="content">
 <div class="title">Git Diff 的插件版本</div>
 <div class="paragraph">
-<p>在本书中，我们使用 <code>git diff</code> 来分析文件差异。
-但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 <code>git difftool</code> 命令来用 Araxis ，emerge 或 vimdiff 等软件输出 diff 分析结果。
-使用 <code>git difftool --tool-help</code> 命令来看你的系统支持哪些 Git Diff 插件。</p>
+<p>本书使用 <code>git diff</code> 分析文件差异。
+但也可以用 <code>git difftool</code> 命令图形化调用 Araxis ，emerge 或 vimdiff 等软件输出 diff 分析结果。
+使用 <code>git difftool --tool-help</code> 查看系统支持哪些 Git Diff 插件。</p>
 </div>
 </td>
 </tr>
@@ -1867,8 +1867,8 @@ $ git commit -a -m 'added new benchmarks'
 <h4 id="r_removing_files">移除文件</h4>
 <div class="paragraph">
 <p>
-要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。
-可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+要移除某个文件，用 <code>git rm</code> 从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。
+命令会连带从工作目录删除指定文件。</p>
 </div>
 <div class="paragraph">
 <p>如果只是简单地从工作目录中手工删除文件，运行 <code>git status</code> 时就会在 “Changes not staged for commit” 部分（也就是 <em>未暂存清单</em>）看到：</p>
@@ -1904,7 +1904,7 @@ Changes to be committed:
 </div>
 </div>
 <div class="paragraph">
-<p>下一次提交时，该文件就不再纳入版本管理了。
+<p>下一次提交时，该文件就不再纳入版本管理。
 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 <code>-f</code>（译注：即 force 的首字母）。
 这是一种安全特性，用于防止误删还没有添加到快照的数据，这样的数据不能被 Git 恢复。</p>
 </div>
@@ -1929,10 +1929,10 @@ Changes to be committed:
 </div>
 </div>
 <div class="paragraph">
-<p>注意到星号 <code>*</code> 之前的反斜杠 <code>\</code>，
-因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开。
+<p>注意星号 <code>*</code> 之前的反斜杠 <code>\</code>，
+Git 用自己的文件模式扩展方式匹配，所以不用 shell 展开。
 此命令删除 <code>log/</code> 目录下扩展名为 <code>.log</code> 的所有文件。
-类似的比如：</p>
+类似的：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2594,19 +2594,27 @@ Changes to be committed:
 <div class="sect2">
 <h3 id="r_remote_repos">远程仓库的使用</h3>
 <div class="paragraph">
-<p>为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。
-远程仓库是指托管在因特网或其他网络中的你的项目的版本库。
-你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。
-与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。
-管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。
-在本节中，我们将介绍一部分远程管理的技能。</p>
+<p>远程仓库指托管在 Internet 或其他网络中的项目版本库。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>添加远程仓库</p>
+</li>
+<li>
+<p>移除无效的远程仓库</p>
+</li>
+<li>
+<p>管理不同的远程分支并定义它们是否被跟踪等等。</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
 <h4 id="_查看远程仓库">查看远程仓库</h4>
 <div class="paragraph">
-<p>如果想查看你已经配置的远程仓库服务器，可以运行 <code>git remote</code> 命令。
-它会列出你指定的每一个远程服务器的简写。
-如果你已经克隆了自己的仓库，那么至少应该能看到 origin ——这是 Git 给你克隆的仓库服务器的默认名字：</p>
+<p><code>git remote</code> 查看已配置的远程仓库服务器。 
+列出指定的每一个远程服务器的简写。
+在已克隆的仓库下使用，至少会看到 origin —— 这是 Git 给克隆的仓库的默认名字：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2623,7 +2631,7 @@ origin</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>你也可以指定选项 <code>-v</code>，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。</p>
+<p>加上选项 <code>-v</code> 会显示需要读写远程仓库的 Git 简写，以及对应的 URL</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2633,8 +2641,7 @@ origin	https://github.com/schacon/ticgit (push)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>如果你的远程仓库不止一个，该命令会将它们全部列出。
-例如，与几个协作者合作的，拥有多个远程仓库的仓库看起来像下面这样：</p>
+<p>如果远程仓库不止一个，该命令会将它们全部列出。比如一个多人合作的远程仓库：</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -23607,7 +23614,7 @@ for (Ref ref : remoteRefs) {
 <div id="footer">
 <div id="footer-text">
 Version 0<br>
-Last updated 2019-09-14 17:39:18 CST
+Last updated 2019-09-16 17:10:45 CST
 </div>
 </div>
 </body>
